@@ -3,6 +3,7 @@ dotenv.config();
 import express from 'express';
 import cors from 'cors';
 import connectDB  from './config/mongodb.js';
+import storedAdminCred from './seed/seedDb.js';
 import connectCloudinary from './config/cloudinary.js';
 import adminRouter from './routes/adminRoute.js';
 import { fileURLToPath } from 'url';
@@ -27,6 +28,8 @@ import morgan from 'morgan';
 const app = express();
 const port = process.env.PORT || 4000;
 
+app.use(cors());
+
 // Connect to database and cloud services
 connectCloudinary();
 
@@ -41,15 +44,9 @@ const server = app.listen(port, () => {
 };
 
 startServer();
-
 // Middlewares
 app.use(helmet()); // Security headers
-app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-production-domain.com'] 
-    : ['http://localhost:3000'],
-  credentials: true
-}));
+
 app.use(express.json({ limit: '10kb' })); // Body limit is 10kb
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
