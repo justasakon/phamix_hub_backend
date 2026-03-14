@@ -6,11 +6,10 @@ import connectDB  from './config/mongodb.js';
 import storedAdminCred from './seed/seedDb.js';
 import connectCloudinary from './config/cloudinary.js';
 import adminRouter from './routes/adminRoute.js';
+import doctorRouter from './routes/doctorRoute.js';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import path from 'path';
-
-
 
 // Configure __dirname equivalent for ES modules
 const __filename = fileURLToPath(import.meta.url);
@@ -57,6 +56,7 @@ if (process.env.NODE_ENV === 'development') {
 
 // API Routes (endpoints) when ever we call this api, the api controler function will be executed
 app.use('/api/admin', adminRouter)
+app.use('/api/doctor', doctorRouter)
 //localhost:4000/api/admin/add-doctor
 
 // Health check endpoint
